@@ -1,0 +1,84 @@
+.ns-calendar {
+	background: #fff;
+	border: solid 1px #ccc;
+	font: 12px Verdana, sans-serif;
+	height: 200px;
+	left: 0;
+	padding: 10px;
+	position: absolute;
+	top: 0;
+	width: 245px;
+	visibility: hidden;
+}
+
+.ns-calendar * {
+	margin: 0;
+	padding: 0;
+}
+
+.ns-calendar li {
+	background: none;
+}
+
+.ns-calendar-months {
+	margin: 0 5px 0 0;
+	width: 170px;
+}
+
+.ns-calendar-years {
+	width: 70px;
+}
+
+.ns-calendar-weekdays {
+	list-style: none;
+	margin: 10px 0 0 0;
+}
+
+.ns-calendar-weekday {
+	color: #aaa;
+	cursor: default;
+	display: block;
+	float: left;
+	height: 20px;
+	text-align: center;
+	width: 35px;
+	}
+
+.ns-calendar-weekday-holiday {
+	color: #ffaaaa;
+	}
+
+.ns-calendar-days {
+	list-style: none;
+	}
+
+.ns-calendar-day-placeholder {
+	display: block;
+	float: left;
+	height: 22px;
+	width: 35px;
+	}
+
+.ns-calendar-day {
+	border: solid 1px #fff;
+	color: #000;
+	cursor: pointer;
+	display: block;
+	float: left;
+	height: 20px;
+	padding-top: 3px;
+	text-align: center;
+	width: 33px;
+	}
+
+.ns-calendar-day-hover {
+	border: solid 1px #ccc;
+	}
+
+.ns-calendar-day-holiday {
+	color: #dc0000;
+	}
+
+.ns-calendar-day-selected {
+	background: #eee !important;
+	}

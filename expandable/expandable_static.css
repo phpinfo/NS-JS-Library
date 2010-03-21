@@ -1,0 +1,42 @@
+/**
+ * Expandable stylesheet
+ */
+
+/* Header */
+h2.ns-expandable {
+	margin: 20px 0 0 0;
+	padding: 0 0 0 20px;
+}
+
+	h2.ns-expandable.expandable {
+		background: no-repeat 0 center;
+		cursor: pointer;
+	}
+
+	h2.ns-expandable.collapsed {
+		background-image: url('collapsed.png');
+	}
+
+	h2.ns-expandable.expanded {
+		background-image: url('expanded.png');
+	}
+
+	h2.ns-expandable.collapsed-ani {
+		background-image: url('collapsed-ani.gif');
+	}
+
+	h2.ns-expandable.expanded-ani {
+		background-image: url('expanded-ani.gif');
+	}
+
+
+/* Block */
+div.ns-expandable {
+	margin: 0 0 0 20px;
+	overflow: hidden;
+	padding-left: 1px;
+}
+
+	div.ns-expandable.hidden {
+		display: none;
+	}

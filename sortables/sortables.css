@@ -1,0 +1,12 @@
+/**
+ * Sortables stylesheet
+ *
+ */
+
+ .ns-sortables tr {
+	 cursor: move;
+ }
+
+ .ns-sortables.disabled tr {
+	 cursor: auto;
+ }

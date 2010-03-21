@@ -1,0 +1,36 @@
+/**
+ * Expandable stylesheet
+ */
+
+/* Header */
+h2.ns-expandable {
+	height: 25px;
+	margin: 20px 0 0 0;
+	overflow: hidden;
+	padding: 0 0 0 20px;
+}
+
+	h2.ns-expandable.expandable {
+		background: url('sprite.png') no-repeat 0 0;
+		cursor: pointer;
+	}
+
+	h2.ns-expandable.collapsed {
+		background-position: 0 0;
+	}
+
+	h2.ns-expandable.expanded {
+		background-position: 0 -250px;
+	}
+
+
+/* Block */
+div.ns-expandable {
+	margin: 0 0 0 20px;
+	overflow: hidden;
+	padding-left: 1px;
+}
+
+	div.ns-expandable.hidden {
+		display: none;
+	}

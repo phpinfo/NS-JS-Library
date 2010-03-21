@@ -1,0 +1,109 @@
+/**
+ * Uploader stylesheet
+ *
+ */
+
+.ns-uploader {
+	margin: 5px 0 0 0;
+}
+
+.ns-uploader .disabled {
+	color: #aaa;
+}
+
+.ns-uploader .icon {
+	background: url('sprite.png') no-repeat 0 0;
+	overflow: hidden;
+	padding-left: 20px;
+}
+
+.ns-uploader .icon.add {
+	background-position: 2px -2px;
+}
+
+.ns-uploader .icon.file {
+	background-position: 2px -22px;
+}
+
+.ns-uploader .icon.cross {
+	background-position: 2px -42px;
+}
+
+.ns-uploader ul {
+	list-style: none;
+	margin: 10px 0 5px 0;
+	overflow: hidden;
+	padding: 0 0 1px 0;
+	width: 322px;
+}
+
+.ns-uploader li {
+	border: solid 1px #b3cadf;
+	display: block;
+	float: left;
+	height: 20px;
+	margin: 0 0 -1px 0;
+	overflow: hidden;
+	position: relative;
+	width: 320px;
+}
+
+.ns-uploader li.bordered {
+	border: solid 1px #b3cadf;
+}
+
+.ns-uploader li .filename {
+	background: url('sprite.png') no-repeat 2px -20px;
+	height: 18px;
+	left: 0;
+	padding: 2px 0 0 20px;
+	position: absolute;
+	top: 0;
+	width: 250px;
+	z-index: 2;
+}
+
+.ns-uploader li .cancel {
+	background: url('sprite.png') no-repeat 2px -40px;
+	cursor: pointer;
+	height: 20px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 20px;
+	z-index: 1;
+}
+
+.ns-uploader li .status {
+	background: #b3cadf;
+	height: 20px;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 0;
+	z-index: 0;
+}
+
+.ns-uploader .browse {
+	background: url('sprite.png') no-repeat 2px -2px;
+	overflow: hidden;
+	padding-left: 20px;
+}
+
+.ns-uploader .decorator.type-image.type-single {
+	background: no-repeat center center;
+	border: solid 1px #b3cadf;
+	height: 320px;
+	position: relative;
+	width: 320px;
+}
+
+.ns-uploader .decorator.type-image.type-single .loader {
+	background: url(loader.gif) no-repeat 0 0;
+	height: 16px;
+	left: 50%;
+	margin: -8px 0 0 -8px;
+	position: absolute;
+	top: 50%;
+	width: 16px;
+}
