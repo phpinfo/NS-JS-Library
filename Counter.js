@@ -4,7 +4,6 @@
  */
 
 var NS = NS || {};
-
 NS.Counter = new Class({
 	Implements: Events,
 
@@ -12,13 +11,7 @@ NS.Counter = new Class({
 	 * Destination timestamp in ms
 	 * @var {Number}
 	 */
-	_destinationTimestamp: 0,
-
-	/**
-	 * Current timestamp in ms
-	 * @var {Number}
-	 */
-	_currentTimestamp: 0,
+	_d: 0,
 
 	/**
 	 * Timer
@@ -43,7 +36,7 @@ NS.Counter = new Class({
 			default:
 				time = ~~time;
 		}
-		this._destinationTimestamp = time;
+		this._d = time;
 	},
 
 	/**
@@ -56,22 +49,30 @@ NS.Counter = new Class({
 	},
 
 	/**
+	 * Stop
+	 *
+	 */
+	stop: function()
+	{
+		$clear(this._timer);
+	},
+
+	/**
 	 * Handle tick
 	 *
 	 */
 	_tick: function()
 	{
-		var diff = this._destinationTimestamp - new Date().getTime();
+		var diff = this._d - new Date().getTime();
 
 		var _days = Math.floor(diff/86400000),
-			_hours = Math.floor((diff-_days*86400000)/3600000),
-			_minutes = Math.floor((diff-_days*86400000-_hours*3600000)/60000),
-			_seconds = Math.floor((diff-_days*86400000-_hours*3600000-_minutes*60000)/1000),
-			_mseconds = diff-_days*86400000-_hours*3600000-_minutes*60000-_seconds*1000;
-
-		//console.log(diff);
-
-		//$clear(this._timer);
+			_daysMs = _days*86400000,
+			_hours = Math.floor((diff-_daysMs)/3600000),
+			_hoursMs = _hours*3600000,
+			_minutes = Math.floor((diff-_daysMs-_hoursMs)/60000),
+			_minutesMs = _minutes*60000,
+			_seconds = Math.floor((diff-_daysMs-_hoursMs-_minutesMs)/1000),
+			_mseconds = diff-_daysMs-_hoursMs-_minutesMs-_seconds*1000+Math.round(Math.random()*5);
 
 		this.fireEvent('tick', {
 			days: _days,
