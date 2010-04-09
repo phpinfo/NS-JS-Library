@@ -1,9 +1,8 @@
-if (typeof(NS) == 'undefined') NS = {};
-
 /**
  * Semaphore class
  *
  */
+var NS = NS || {};
 NS.Semaphore = new Class({
 
 	/**

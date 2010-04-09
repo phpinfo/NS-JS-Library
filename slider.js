@@ -2,6 +2,7 @@
  * Slider class
  *
  */
+var NS = NS || {};
 NS.Slider = new Class({
 	Implements: [Options, Events, NS.Semaphore],
 
@@ -101,10 +102,7 @@ NS.Slider = new Class({
 	reinit: function()
 	{
 		// Caching frame elements
-		this._frames = [];
-		this.options.elContainer.getChildren(this.options.framesSelector).each(function(frame){
-			this._frames.push(frame);
-		}.bind(this));
+		this._frames = this.options.elContainer.getElements(this.options.framesSelector);
 
 		// Frames count
 		// TODO: this.options.framesCount => this._framesCount
@@ -122,10 +120,7 @@ NS.Slider = new Class({
 				this.options.elContainer.setStyle(style, this.options.framesCount * 100 / this.options.framesVisible + '%');
 
 				// Frames
-				var size = 100 / this.options.framesCount + '%';
-				this._frames.each(function(frame){
-					frame.setStyle(style, size);
-				}.bind(this));
+				this._frames.setStyle(style, 100 / this.options.framesCount + '%');
 			}
 		}
 
