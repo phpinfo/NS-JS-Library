@@ -25,6 +25,7 @@ NS.Counter = new Class({
 	 */
 	initialize: function(time)
 	{
+		console.log(time);
 		switch ($type(time))
 		{
 			case 'date':
