@@ -153,5 +153,88 @@ Hash.implement({getFromPath:function(a){var b=this.getClean();a.replace(/\[([^\]
 "\u00fe","\u00d0","\u00f0","\u00df","\u0152","\u0153","\u00c6","\u00e6","\u00b5"],b=["A","a","A","a","A","a","A","a","Ae","ae","A","a","A","a","A","a","C","c","C","c","C","c","D","d","D","d","E","e","E","e","E","e","E","e","E","e","E","e","G","g","I","i","I","i","I","i","I","i","L","l","L","l","L","l","N","n","N","n","N","n","O","o","O","o","O","o","O","o","Oe","oe","O","o","o","R","r","R","r","S","s","S","s","S","s","T","t","T","t","T","t","U","u","U","u","U","u","Ue","ue","U","u","Y","y","Y","y",
 "Z","z","Z","z","Z","z","TH","th","DH","dh","ss","OE","oe","AE","ae","u"],c={"[\u00a0\u2002\u2003\u2009]":" ","\u00b7":"*","[\u2018\u2019]":"'","[\u201c\u201d]":'"',"\u2026":"...","\u2013":"-","\u2014":"--","\ufffd":"&raquo;"},d=function(e,i){e=e||"";return reg=new RegExp(i?"<"+e+"[^>]*>([\\s\\S]*?)</"+e+">":"</?"+e+"([^>]+)?>","gi")};String.implement({standardize:function(){var e=this;a.each(function(i,j){e=e.replace(new RegExp(i,"g"),b[j])});return e},repeat:function(e){return(new Array(e+1)).join(this)},
 pad:function(e,i,j){if(this.length>=e)return this;e=(i==null?" ":""+i).repeat(e-this.length).substr(0,e-this.length);if(!j||j=="right")return this+e;if(j=="left")return e+this;return e.substr(0,(e.length/2).floor())+this+e.substr(0,(e.length/2).ceil())},getTags:function(e,i){return this.match(d(e,i))||[]},stripTags:function(e,i){return this.replace(d(e,i),"")},tidy:function(){var e=this.toString();$each(c,function(i,j){e=e.replace(new RegExp(j,"g"),i)});return e}})})();var NS=NS||{};NS=NS||{};
-NS.Counter=new Class({Implements:Events,_d:0,_timer:null,initialize:function(a){console.log(a);switch($type(a)){case "date":a=a.getTime();break;case "string":a=Date.parse(a).getTime()||0;break;default:a=~~a}this._d=a},start:function(){this._timer=this._tick.periodical(50,this)},stop:function(){$clear(this._timer)},_tick:function(){var a=this._d-(new Date).getTime(),b=Math.floor(a/864E5),c=b*864E5,d=Math.floor((a-c)/36E5),e=d*36E5,i=Math.floor((a-c-e)/6E4),j=i*6E4,h=Math.floor((a-c-e-j)/1E3);a=a-c-
-e-j-h*1E3+Math.round(Math.random()*5);this.fireEvent("tick",{days:b,hours:d,minutes:i,seconds:h,mseconds:a})}});
+/**
+ * Counter
+ * 
+ */
+
+var NS = NS || {};
+NS.Counter = new Class({
+	Implements: Events,
+
+	/**
+	 * Destination timestamp in ms
+	 * @var {Number}
+	 */
+	_d: 0,
+
+	/**
+	 * Timer
+	 * @var {Number}
+	 */
+	_timer: null,
+
+	/**
+	 * Constructor
+	 * @param {Number|String|Date}
+	 */
+	initialize: function(time)
+	{
+		switch ($type(time))
+		{
+			case 'date':
+				time = time.getTime();
+				break;
+			case 'string':
+				time = Date.parse(time).getTime() || 0;
+				break;
+			default:
+				time = ~~time;
+		}
+		this._d = time;
+	},
+
+	/**
+	 * Start
+	 *
+	 */
+	start: function()
+	{
+		this._timer = this._tick.periodical(50, this);
+	},
+
+	/**
+	 * Stop
+	 *
+	 */
+	stop: function()
+	{
+		$clear(this._timer);
+	},
+
+	/**
+	 * Handle tick
+	 *
+	 */
+	_tick: function()
+	{
+		var diff = this._d - new Date().getTime();
+
+		var _days = Math.floor(diff/86400000),
+			_daysMs = _days*86400000,
+			_hours = Math.floor((diff-_daysMs)/3600000),
+			_hoursMs = _hours*3600000,
+			_minutes = Math.floor((diff-_daysMs-_hoursMs)/60000),
+			_minutesMs = _minutes*60000,
+			_seconds = Math.floor((diff-_daysMs-_hoursMs-_minutesMs)/1000),
+			_mseconds = diff-_daysMs-_hoursMs-_minutesMs-_seconds*1000+Math.round(Math.random()*5);
+
+		this.fireEvent('tick', {
+			days: _days,
+			hours: _hours,
+			minutes: _minutes,
+			seconds: _seconds,
+			mseconds: _mseconds
+		});
+	}
+});
