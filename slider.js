@@ -182,10 +182,10 @@ NS.Slider = new Class({
 			// Before start and after end events
 			if (position != this.position)
 			{
-				if (this._isFirst() && position < this.position)
+				if (this.isFirst() && position < this.position)
 					this.fireEvent('scrollBeforeStart', { 'target': this });
 
-				if (this._isLast() && position > this.position)
+				if (this.isLast() && position > this.position)
 					this.fireEvent('scrollAfterEnd', { 'target': this });
 			}
 
@@ -221,8 +221,8 @@ NS.Slider = new Class({
 			// Frames first/last classes
 			this._frames.each(function(frame, index){
 				frame.removeClass('first').removeClass('last');
-				if (this._isFirstOfVisible(index)) frame.addClass('first');
-				if (this._isLastOfVisible(index)) frame.addClass('last');
+				if (this.isFirstOfVisible(index)) frame.addClass('first');
+				if (this.isLastOfVisible(index)) frame.addClass('last');
 			}.bind(this));
 		}
 	},
@@ -245,8 +245,8 @@ NS.Slider = new Class({
 			el.fireEvent('deselect', {
 				'element'        : el,
 				'index'          : i,
-				'firstOfVisible' : this._isFirstOfVisible(i),
-				'lastOfVisible'  : this._isLastOfVisible(i),
+				'firstOfVisible' : this.isFirstOfVisible(i),
+				'lastOfVisible'  : this.isLastOfVisible(i),
 				'data'           : JSON.decode(el.getAttribute('data-element') || null)
 			});
 			if (index == i) element = el;
@@ -256,8 +256,8 @@ NS.Slider = new Class({
 		var event = {
 			'element'        : element,
 			'index'          : index,
-			'firstOfVisible' : this._isFirstOfVisible(index),
-			'lastOfVisible'  : this._isLastOfVisible(index),
+			'firstOfVisible' : this.isFirstOfVisible(index),
+			'lastOfVisible'  : this.isLastOfVisible(index),
 			'data'           : JSON.decode(element.getAttribute('data-element'))
 		};
 
@@ -312,7 +312,7 @@ NS.Slider = new Class({
 	 * Is fist slide
 	 * @return {bool}
 	 */
-	_isFirst: function()
+	isFirst: function()
 	{
 		return this.position == 0;
 	},
@@ -321,7 +321,7 @@ NS.Slider = new Class({
 	 * Is last slide
 	 * @return {bool}
 	 */
-	_isLast: function()
+	isLast: function()
 	{
 		var p = this.options.framesCount - this.options.framesVisible;
 		return p < 0 || this.position == p;
@@ -336,8 +336,8 @@ NS.Slider = new Class({
 		if (c !== null)
 		{
 			var m = ['addClass', 'removeClass'];
-			this.options.elPrev[m[Number(!this._isFirst())]](c);
-			this.options.elNext[m[Number(!this._isLast())]](c);
+			this.options.elPrev[m[Number(!this.isFirst())]](c);
+			this.options.elNext[m[Number(!this.isLast())]](c);
 		}
 	},
 	
@@ -346,7 +346,7 @@ NS.Slider = new Class({
 	 * @param  {int} index
 	 * @return {bool}
 	 */
-	_isFirstOfVisible: function(index)
+	isFirstOfVisible: function(index)
 	{
 		return index == this.position;
 	},
@@ -356,7 +356,7 @@ NS.Slider = new Class({
 	 * @param  {int} index
 	 * @return {bool}
 	 */
-	_isLastOfVisible: function(index)
+	isLastOfVisible: function(index)
 	{
 		return index == this.position + this.options.framesVisible - 1;
 	},
