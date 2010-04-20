@@ -71,22 +71,25 @@ NS.Slider = new Class({
 			'onComplete': this.enable.bind(this)
 		});
 
+		// Caching frame elements
+		this._frames = this.options.elContainer.getElements(this.options.framesSelector);
+
 		// Frames size
-		if (this.options.frameSize === null)
+		if (this.options.frameSize === null && this._frames.length)
 		{
-			// TODO: automatic <this.options.frameSize> definition if <this.options.unit> is 'px'
+			this.options.frameSize = [null, null];
 
 			// Automatic <this.options.frameSize> definition if <this.options.unit> is '%'
 			if (this.options.unit == '%')
-			{
-				this.options.frameSize = [null, null];
 				this.options.frameSize[this.options.direction] = 100 / this.options.framesVisible;
-				this.options.frameSize[1 - this.options.direction] = 0;
-			}
+			else if (this.options.unit == 'px')
+				this.options.frameSize[this.options.direction] = this._frames[0].getSize()[this.options.direction ? 'y' : 'x'];
+
+			this.options.frameSize[1 - this.options.direction] = 0;
 		}
 
 		// Reinit
-		this.reinit();
+		this.reinit(true);
 
 		// Event handlers
 		this._setEventHandlers();
@@ -98,11 +101,16 @@ NS.Slider = new Class({
 	/**
 	 * Reinitialization
 	 * You can call it if frames elements changed
+	 *
+	 * @param {Bool} skipFramesReinit
 	 */
-	reinit: function()
+	reinit: function(skipFramesReinit)
 	{
+		skipFramesReinit = skipFramesReinit || false;
+
 		// Caching frame elements
-		this._frames = this.options.elContainer.getElements(this.options.framesSelector);
+		if (!skipFramesReinit)
+			this._frames = this.options.elContainer.getElements(this.options.framesSelector);
 
 		// Frames count
 		// TODO: this.options.framesCount => this._framesCount
@@ -112,15 +120,20 @@ NS.Slider = new Class({
 		// Automatic elements sizes calculation
 		if (this.options.autoSizeElements)
 		{
+			var style = ['width', 'height'][this.options.direction];
+
 			if (this.options.unit == '%')
 			{
-				var style = ['width', 'height'][this.options.direction];
-
 				// Container
 				this.options.elContainer.setStyle(style, this.options.framesCount * 100 / this.options.framesVisible + '%');
 
 				// Frames
 				this._frames.setStyle(style, 100 / this.options.framesCount + '%');
+			}
+			else if (this.options.unit == 'px')
+			{
+				// Container
+				this.options.elContainer.setStyle(style, this.options.framesCount * this.options.frameSize[this.options.direction] + 'px');
 			}
 		}
 

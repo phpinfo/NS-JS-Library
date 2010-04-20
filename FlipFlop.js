@@ -86,7 +86,10 @@ NS.FlipFlop = new Class({
 		{
 			var cookie = $H(JSON.decode(Cookie.read(this.options.cookieName)) || {});
 			cookie.set(id, ~~state);
-			Cookie.write(this.options.cookieName, JSON.encode(cookie.getClean()));
+			Cookie.write(this.options.cookieName, JSON.encode(cookie.getClean()), {
+				domain: location.host,
+				path: '/'
+			});
 		}
 	},
 
